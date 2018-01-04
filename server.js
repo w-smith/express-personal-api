@@ -45,9 +45,10 @@ app.get('/api', function api_index(req, res) {
     endpoints: [
       {method: "GET", path: "/api", description: "Mah endpoints"},
       {method: "GET", path: "/api/profile", description: "DIS ABOUT ME"},
-      {method: "POST", path: "/api/videogames", description: "Some Video Games I like"}
+      {method: "POST", path: "/api/videogames", description: "Some Video Games I like"},
+      {method: "DELETE", path: "/api/videogames/:id", description: "Delete games from the list"}
     ]
-  })
+  });
 });
 
 /**********
