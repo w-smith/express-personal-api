@@ -4,4 +4,4 @@ mongoose.connect( process.env.MONGODB_URI ||
                   process.env.MONGOHQ_URL || 
                   "mongodb://localhost/3000");
 
-module.exports.Videogames = require("./videogames.js.example");
+module.exports.Videogames = require("./videogames.js");
