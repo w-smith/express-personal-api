@@ -50,12 +50,16 @@ app.get('/api/profile', function(req, res){
   });
  });
 
-  app.put('/api/videogames/:id', function(req, res){
+ app.put('/api/videogames/:id', function(req, res){
   db.Videogames.findOne({_id:req.params.id},function(err, videogames){
     if(err){res.send("error updating videogames", err);}
     if(req.body.make){videogames.make = req.body.make;}
     if(req.body.model){videogames.model = req.body.model;}
     res.json(videogames);
+    db.Videogames.update({_id:req.params.id},videogames,function(err, videogames){
+      if(err){res.send("Error updating.");}
+      res.json(videogames);
+    });
   });
  });
 
