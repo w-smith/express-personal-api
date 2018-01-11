@@ -50,20 +50,39 @@ app.get('/api/profile', function(req, res){
   });
  });
 
- app.put('/api/videogames/:id', function(req, res){
-  db.Videogames.findOne({_id:req.params.id},function(err, videogames){
-    if(err){res.send("error updating videogames", err);}
-    if(req.body.make){videogames.make = req.body.make;}
-    if(req.body.model){videogames.model = req.body.model;}
-    res.json(videogames);
-    db.Videogames.update({_id:req.params.id},videogames,function(err, videogames){
-      if(err){res.send("Error updating.");}
-      res.json(videogames);
+
+app.put('/api/videogames/:id', function(req, res){
+  db.Videogames.findById(req.params.id, function(err, updateVideogames){
+    if(err)
+      res.json("error.",err);
+    if(updateVideogames)
+      console.log(updateVideogames);
+      updateVideogames.title = req.body.title;
+      updateVideogames.console = req.body.console;
+      updateVideogames.mutltiplayer = req.body.mutltiplayer;
+      updateVideogames.year = req.body.year;
+
+      updateVideogames.save(function (err, updateVideogames) {
+          if (err) return handleError(err);
+          res.json(updateVideogames);
+        });
     });
-  });
- });
+}); 
 
+// app.put('/api/videogames/:id', function update(req, res) {
+//   /* This endpoint will update a single todo with the
+//    * id specified in the route parameter (:id) and respond
+//    * with the newly updated todo.
+//    */
+//   var thisVideogame = db.Videogames.find(function(videogames){
+//     return Videogames._id === Number(req.params.id);
+//   });
+//    if(req.body.Title) thisVideogame.Title = req.body.Title;
+//    if(req.body.Year) thisVideogame.Year = req.body.Year;
+//    res.send(thisVideogame);
 
+//    Videogames.save();
+// });
 
 // Serve static files from the `/public` directory:
 // i.e. `/images`, `/scripts`, `/styles`
